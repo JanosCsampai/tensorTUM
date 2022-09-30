@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import logo from './BTMS-logo.jpeg'
 
 class LogoComponent extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class LogoComponent extends Component {
     render() {
         return (
             <div className= "logo">
-
+                <img className="logo" src={logo}/>
             </div>
         );
     }

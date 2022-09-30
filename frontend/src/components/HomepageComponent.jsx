@@ -4,6 +4,8 @@ import LeaderboardComponent from "./LeaderboardComponent";
 import QuizComponent from "./QuizComponent";
 import QuizRegistrationComponent from "./QuizRegistrationComponent";
 import Swal from 'sweetalert2'
+import LogoComponent from "./LogoComponent";
+import LeaderboardResults from "./LeaderboardResults";
 
 class HomepageComponent extends Component {
     constructor(props) {
@@ -15,6 +17,8 @@ class HomepageComponent extends Component {
             showRegistrationForm: false,
             showQuiz: false,
             showLeaderboard: false,
+            username: "",
+            responses: LeaderboardResults
         }
 
     }
@@ -31,26 +35,33 @@ class HomepageComponent extends Component {
                 autocapitalize: 'off'
             },
             showCancelButton: true,
+            showConfirmButton: false,
             cancelButtonColor: '#d33',
             confirmButtonText: 'Start',
             showLoaderOnConfirm: true,
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            if (result.isConfirmed) {
+            if (result.value != null) {
+                console.log(result.value);
                 this.setState({
                     showRegistrationForm: false,
                     showQuiz: true,
-                    showLeaderboard: false
-                })
+                    showLeaderboard: false,
+                    username: result.value
+                });
+
+                const y = document.getElementById('logo').getBoundingClientRect().top - 300;
+                setTimeout(() => {
+                    window.scrollTo({top: y, behavior: 'smooth'})
+                }, 300);
             } else {
                 this.setState({
                     showRegistrationForm: false,
                     showQuiz: false,
                     showLeaderboard: false
-                })
+                });
             }
         });
-
     }
 
     clickedShowLeaderboard = () => {
@@ -59,19 +70,7 @@ class HomepageComponent extends Component {
             showQuiz: false,
             showLeaderboard: true
         });
-        const y = document.getElementById('body').getBoundingClientRect().top - 200;
-        setTimeout(() => {
-            window.scrollTo({top: y, behavior: 'smooth'})
-        }, 300);
-    }
-
-    clickedShowQuiz = () => {
-        this.setState({
-            showRegistrationForm: false,
-            showQuiz: true,
-            showLeaderboard: true
-        });
-        const y = document.getElementById('body').getBoundingClientRect().top - 200;
+        const y = document.getElementById('logo').getBoundingClientRect().top + window.pageYOffset - 300;
         setTimeout(() => {
             window.scrollTo({top: y, behavior: 'smooth'})
         }, 300);
@@ -82,9 +81,10 @@ class HomepageComponent extends Component {
             <div>
                 <NavigationBarComponent clickedNewGame={this.clickedNewGame} clicked
                                         showLeaderboard={this.clickedShowLeaderboard}/>
+                <LogoComponent id='logo'/>
 
                 <div className="body">
-                    {this.state.showLeaderboard ? <LeaderboardComponent/> : null}
+                    {this.state.showLeaderboard ? <LeaderboardComponent responses={this.state.responses}/> : null}
                     {this.state.showQuiz ? <QuizComponent/> : null}
                 </div>
             </div>
