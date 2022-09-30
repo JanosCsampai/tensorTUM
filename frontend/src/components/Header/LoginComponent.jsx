@@ -19,7 +19,7 @@ function Slidebar() {
                     <Offcanvas.Title> Offcanvas </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                   Add text here
+
                 </Offcanvas.Body>
             </Offcanvas>
         </>

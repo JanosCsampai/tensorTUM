@@ -22,18 +22,15 @@ class NavigationBarComponent extends Component {
     componentDidMount() {
     }
 
-    dummy = () => {
-    }
-
     render() {
         return (
             <div>
                 <Navbar bg="primary" variant="dark" >
                     <Container>
-                        <Navbar.Brand>Beat the Med</Navbar.Brand>
+                        <Navbar.Brand>Beat the Med Student </Navbar.Brand>
                         <Nav className="me-auto">
-                            <Nav.Link onClick={this.dummy}> Start Game </Nav.Link>
-                            <Nav.Link> View Leaderboard </Nav.Link>
+                            <Nav.Link onClick={this.props.clickedNewGame}> Start Game </Nav.Link>
+                            <Nav.Link onClick={this.props.showLeaderboard}> View Leaderboard </Nav.Link>
                         </Nav>
 
                         <Nav>

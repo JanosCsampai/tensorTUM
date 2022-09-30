@@ -15,7 +15,7 @@ class QuizComponent extends Component {
     render() {
         return (
             <div>
-
+            test test
             </div>
         );
     }
