@@ -35,13 +35,13 @@ class HomepageComponent extends Component {
                 autocapitalize: 'off'
             },
             showCancelButton: true,
-            showConfirmButton: false,
+
             cancelButtonColor: '#d33',
             confirmButtonText: 'Start',
             showLoaderOnConfirm: true,
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            if (result.value != null) {
+            if (result.isConfirmed) {
                 console.log(result.value);
                 this.setState({
                     showRegistrationForm: false,
@@ -49,7 +49,6 @@ class HomepageComponent extends Component {
                     showLeaderboard: false,
                     username: result.value
                 });
-
                 const y = document.getElementById('logo').getBoundingClientRect().top - 300;
                 setTimeout(() => {
                     window.scrollTo({top: y, behavior: 'smooth'})
