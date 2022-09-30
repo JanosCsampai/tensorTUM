@@ -3,3 +3,9 @@
   font-size: calc(10px + 2vmin);
   color: black;
 }
+
+.body   {
+  display: block;
+  padding: 3em 2em 0em 2em;
+  justify-content: center;
+}

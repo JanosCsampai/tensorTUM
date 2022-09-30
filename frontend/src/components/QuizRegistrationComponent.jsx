@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class LeaderboardComponent extends Component {
+class QuizRegistrationComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -12,7 +12,6 @@ class LeaderboardComponent extends Component {
     componentDidMount() {
     }
 
-    // TODO add a table for the leaderboard
     render() {
         return (
             <div>
@@ -22,4 +21,4 @@ class LeaderboardComponent extends Component {
     }
 }
 
-export default LeaderboardComponent;
+export default QuizRegistrationComponent;
