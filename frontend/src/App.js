@@ -1,14 +1,13 @@
 import './App.css';
-import {Router, Route, Switch} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
+import HomepageComponent from "./components/HomepageComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <HomepageComponent />
+        </div>
+    );
 }
 
 export default App;

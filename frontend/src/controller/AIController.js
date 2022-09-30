@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class Controller {
+class AIController {
 
     // add the api calls
     // TODO (@Get mapping) for getting the images from cloud
@@ -9,4 +9,4 @@ class Controller {
 
 }
 
-export default new Controller();
+export default new AIController();
