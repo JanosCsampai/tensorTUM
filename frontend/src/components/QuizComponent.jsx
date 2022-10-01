@@ -3,7 +3,6 @@ import React, {Component, useState} from 'react';
 export default function QuizComponent() {
     //options: Healthy, pneumonia bacterial, pneumonia viral, tuberculosis, COVID19, edema, lesion
     const images = [];
-
     const [result, setResult] = useState(0);
     const [currentImage, setCurrentImage] = useState(0);
     const [showResult, setShowResult] = useState(false);
@@ -24,7 +23,7 @@ export default function QuizComponent() {
     };
 
     return (
-        <div>
+        <div className="card" >
             {showResult ? <div> You result is: {result} / {images.length} </div>
              : (
                 <div>
@@ -39,7 +38,7 @@ export default function QuizComponent() {
 
                     </div>
                     
-                    <div>
+                    <div className="list-group">
                         <button onClick={() =>updateResult(true)}>Healthy</button>
                         <button onClick={() =>updateResult(true)}>pneumonia bacterial</button>
                         <button onClick={() =>updateResult(true)}>pneumonia viral</button>

@@ -8,6 +8,12 @@ class AIController {
     // TODO (@Get mapping) for getting the images from cloud
     // TODO: REST calls for verifying answer with the ML model
 
+    getImages(number) {
+        return axios.get("http://localhost:8000/api/ctimages/" + number)
+            .then(response => {
+                return response.data
+            });
+    }
 
 }
 
