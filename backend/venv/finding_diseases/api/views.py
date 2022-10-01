@@ -6,6 +6,9 @@ from rest_framework.response import Response
 from rest_framework import generics, permissions
 from level.models import Level
 from level.serializers import LevelSerializer
+from ctimage.models import CTImage
+import random
+from ctimage.serializers import CTImageSerializer
 
 # Create your views here.
 
@@ -28,6 +31,39 @@ class LevelDetailAPIView(generics.RetrieveAPIView):
     queryset = Level.objects.all()
     serializer_class = LevelSerializer
     lookup_field = "title"
+
+"""Django Rest Framework Generic Detail API View""" 
+class CTImageListAPIView(generics.ListAPIView):
+    queryset = CTImage.objects.all()
+    serializer_class = CTImageSerializer
+
+    def get_queryset(self):
+        amount = self.kwargs['amount']
+        qs = super().get_queryset()[:amount]
+        id_list = super().get_queryset().values_list('id', flat=True)
+        id_list = list(id_list)
+        random_id_list = random.sample(id_list, min(len(id_list), amount))
+        query_set = CTImage.objects.filter(id__in=random_id_list)
+        return query_set
+
+    
+"""Django Rest Framework Generic Detail API View""" 
+class CTImageForCategory(generics.ListAPIView):
+
+    queryset = CTImage.objects.all()
+    serializer_class = CTImageSerializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        amount = self.kwargs['amount']
+        qs = super().get_queryset().filter(category=category)[:amount]
+        id_list = super().get_queryset().values_list('id', flat=True)
+        id_list = list(id_list)
+        random_id_list = random.sample(id_list, min(len(id_list), amount))
+        query_set = CTImage.objects.filter(id__in=random_id_list)
+        return query_set
+
+        
 
 """Django Rest Framework Generic List API View""" 
 # class TaskListAPIView(generics.ListAPIView):
