@@ -31,8 +31,10 @@ export default function NavigationBarComponent(props) {
                     </Nav>
 
                     <Nav>
-                        {authenticated == null ? <Link to="/login" className="b96-login">Log In</Link> :
-                            <button className="b96-login" onClick={() => logout(navigate)}>Log Out</button>}
+                        {authenticated == null ?
+                            <Nav.Link onClick={() => { navigate("/login")} } className="b96-login">Log In</Nav.Link>
+                            :
+                            <Nav.Link onClick={() => logout(navigate)}> Log Out </Nav.Link>}
                     </Nav>
 
                 </Container>
