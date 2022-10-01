@@ -12,7 +12,7 @@ class HomepageComponent extends Component {
         super(props);
 
         this.state = {
-            logged_in: false,
+            logged_in: localStorage.getItem("access_token"),
             username: "",
             password: "",
             showLogo: true,
@@ -112,7 +112,7 @@ class HomepageComponent extends Component {
     render() {
         return (
             <div>
-                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPassword={this.setPassword}/>
+                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPassword={this.setPassword} logged_in={this.state.logged_in}/>
                 <LogoComponent id='logo'/>
 
                 <div className="body">

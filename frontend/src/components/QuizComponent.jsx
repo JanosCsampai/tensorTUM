@@ -1,6 +1,7 @@
 import React, {Component, useState, useEffect} from 'react';
 import AIController from "../controller/AIController";
 import Swal from 'sweetalert2'
+import {Button, Form, Image} from "react-bootstrap";
 
 export default function QuizComponent(props) {
     //options: Healthy, pneumonia bacterial, pneumonia viral, tuberculosis, COVID19, edema, lesion    
@@ -70,7 +71,7 @@ export default function QuizComponent(props) {
     }, []);
 
     return (
-        <div className="card">
+        <div>
             {showResult ? <div> You result is: {result} / {images.length} </div>
                 : (
                     <div>
@@ -81,7 +82,7 @@ export default function QuizComponent(props) {
 
                             <div>
                                 {images.length != 0 ?
-                                    <img src={images[currentImage].image_url}></img> : null}
+                                    <Image fluid={true} src={images[currentImage].image_url}></Image> : null}
                             </div>
 
                         </div>

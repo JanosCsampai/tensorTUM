@@ -1,68 +1,44 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {Button, Container, Form, Nav, Navbar, NavDropdown, Offcanvas} from "react-bootstrap";
 import Swal from "sweetalert2"
 import SlidingPane from "react-sliding-pane";
 import Slidebar from "./LoginComponent";
+import Login from "../account/login/login";
+import {Link, useNavigate} from "react-router-dom";
+import axiosInstance from "../../api/axios";
 
-class NavigationBarComponent extends Component {
-    constructor(props) {
-        super(props);
+export default function NavigationBarComponent(props) {
+    const [logged_in, setLogin] = useState(props.logged_in);
+    const authenticated = localStorage.getItem("access_token")
+    const navigate = useNavigate();
 
-        this.state = {
-            logged_in: false,
-            userid: "",
-            show_login: true
-        }
+    //<Slidebar setLoggedIn={this.props.setLoggedIn} setUser={this.props.setUser} setPassword={this.props.setPassword} loginUser={this.loginUser} registerUser={this.registerUser}/>
 
+    function logout(navigate) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        axiosInstance.defaults.headers.common["Authorization"] = "";
+        navigate("/login");
     }
 
-    showLogin = () =>   {
-        this.setState({showLogin: true});
-    }
+    return (
+        <div>
+            <Navbar bg="primary" variant="dark">
+                <Container>
+                    <Navbar.Brand>Beat the Med Student </Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Nav.Link onClick={props.clickedNewGame}> Start Game </Nav.Link>
+                        <Nav.Link onClick={props.showLeaderboard}> View Leaderboard </Nav.Link>
+                    </Nav>
 
-    logoutUser = async () =>    {
-        this.setState({logged_in: false, userid: ""});
-        this.props.setLoggedIn(false);
-        this.props.setUser("");
-        this.props.setPass("");
-        Swal.fire({
-            icon: 'success',
-            text: 'Successfully logged out',
-            showConfirmButton: false,
-            timer: 4000
-        });
-    }
+                    <Nav>
+                        {authenticated == null ? <Link to="/login" className="b96-login">Log In</Link> :
+                            <button className="b96-login" onClick={() => logout(navigate)}>Log Out</button>}
+                    </Nav>
 
-    loginUser = async  () => {
-    }
+                </Container>
+            </Navbar>
+        </div>
 
-    registerUser = async () =>  {
-    }
-
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <div>
-                <Navbar bg="primary" variant="dark" >
-                    <Container>
-                        <Navbar.Brand>Beat the Med Student </Navbar.Brand>
-                        <Nav className="me-auto">
-                            <Nav.Link onClick={this.props.clickedNewGame}> Start Game </Nav.Link>
-                            <Nav.Link onClick={this.props.showLeaderboard}> View Leaderboard </Nav.Link>
-                        </Nav>
-
-                        <Nav>
-                            <Slidebar setLoggedIn={this.props.setLoggedIn} setUser={this.props.setUser} setPassword={this.props.setPassword} loginUser={this.loginUser} registerUser={this.registerUser}/>
-                        </Nav>
-
-                    </Container>
-                </Navbar>
-            </div>
-
-        );
-    }
+    );
 }
-
-export default NavigationBarComponent;
