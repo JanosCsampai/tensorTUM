@@ -24,6 +24,15 @@ class HomepageComponent extends Component {
 
     }
 
+    quizEnded = () => {
+        this.setState(
+            {
+                showQuiz: false,
+                showLeaderboard: true
+            }
+        )
+    }
+
     setLoggedIn = (val) =>  {
         this.setState({logged_in: val});
     }
@@ -113,7 +122,7 @@ class HomepageComponent extends Component {
 
                 <div className="body">
                     {this.state.showLeaderboard ? <LeaderboardComponent responses={this.state.responses}/> : null}
-                    {this.state.showQuiz ? <QuizComponent username = {this.state.username} addResult = {this.addResult} /> : null}
+                    {this.state.showQuiz ? <QuizComponent username = {this.state.username} addResult = {this.addResult} quizEnded = {this.quizEnded}/> : null}
                 </div>
             </div>
         );

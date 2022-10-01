@@ -16,9 +16,19 @@
   width: 60%;
 }
 
+.quiz {
+  align-content: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
 .alignCenter {
   align-content: center;
-  width: 30rem;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .heading {
