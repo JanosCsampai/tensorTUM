@@ -9,10 +9,9 @@ class AIController {
     // TODO: REST calls for verifying answer with the ML model
 
     getImages(number) {
-        return axios.get("http://localhost:8000/api/ctimages/" + number)
-            .then(response => {
-                return response.data
-            });
+        return axios.get("http://127.0.0.1:8000/api/ctimages/" + number).then(response => {
+            return response.data
+        });
     }
 
 }

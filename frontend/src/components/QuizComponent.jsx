@@ -1,8 +1,9 @@
 import React, {Component, useState} from 'react';
+import AIController from "../controller/AIController";
 
-export default function QuizComponent() {
+export default function QuizComponent(){
     //options: Healthy, pneumonia bacterial, pneumonia viral, tuberculosis, COVID19, edema, lesion
-    const images = [];
+    const images = AIController.getImages(1);
     const [result, setResult] = useState(0);
     const [currentImage, setCurrentImage] = useState(0);
     const [showResult, setShowResult] = useState(false);
@@ -13,6 +14,7 @@ export default function QuizComponent() {
     }
 
     const updateResult = (equalsAnswer) => {
+        console.log(images[0]);
         if (equalsAnswer) setResult(result + 1);
         const nextQuestion = currentImage + 1;
         if (nextQuestion < images.length) {
@@ -33,7 +35,7 @@ export default function QuizComponent() {
                         </div>
 
                         <div>
-                            <img src="https://picsum.photos/536/354" />
+
                         </div>
 
                     </div>
