@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import axiosInstance from '../../../api/axios';
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
+import AuthContext from "../../../context/AuthContext";
 
 
 const schema = yup.object({
@@ -18,6 +20,7 @@ function Login() {
   const { register, handleSubmit, formState: {errors}, getValues, setValue } = useForm<any>({
     resolver: yupResolver(schema), 
   });
+  const {user, setUser} = useContext(AuthContext)
   const history = useNavigate();
   const initialFormData = Object.freeze({
     email: "",
@@ -38,9 +41,10 @@ function Login() {
         localStorage.setItem("refresh_token", res.data.refresh);
         // Update headers for future axios calls
         axiosInstance.defaults.headers.common["Authorization"] = "JWT " + localStorage.getItem("access_token");
+        console.log(jwt_decode(res.data.access))
+        setUser(jwt_decode(res.data.access));
+        console.log(user)
         history("/");
-        console.log(res);
-        console.log(res.data);
       })
   }
 
@@ -49,6 +53,7 @@ function Login() {
 
   return (
     <div className="b96-order-detail">
+      {user ? user.user_id : null}
       <h1 className="b96-order-title">Login</h1>
       <div className="card b96-order-content">
         <div className="card-body">
