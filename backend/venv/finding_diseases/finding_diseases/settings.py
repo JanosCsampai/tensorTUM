@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'api',
 
     'level',
-    'ctimage'
+    'ctimage',
+    'user_statistics'
 ]
 
 MIDDLEWARE = [
