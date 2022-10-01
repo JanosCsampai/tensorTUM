@@ -10,6 +10,7 @@ class AIController {
 
     getImages(number) {
         return axios.get("http://127.0.0.1:8000/api/ctimages/" + number).then(response => {
+            console.log(response.data)
             return response.data
         });
     }
