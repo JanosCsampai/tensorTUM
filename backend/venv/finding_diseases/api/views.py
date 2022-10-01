@@ -9,6 +9,8 @@ from level.serializers import LevelSerializer
 from ctimage.models import CTImage
 import random
 from ctimage.serializers import CTImageSerializer
+from users.models import CustomUser
+from users.serializers import CustomUserSerializer
 
 # Create your views here.
 
@@ -69,3 +71,25 @@ class CTImageForCategory(generics.ListAPIView):
 # class TaskListAPIView(generics.ListAPIView):
 #     queryset = Task.objects.all()
 #     serializer_class = TaskSerializer
+
+
+
+"""Django Rest Framework Generic Detail API View""" 
+class UserDetailAPIView(generics.RetrieveAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    lookup_field = "id"
+
+
+"""Django Rest Framework Generic Detail API View""" 
+class UserStatisticsList(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset().order_by("-statistics__total_correct_count")
+
+        return qs
+
+    
+UserStatisticsList

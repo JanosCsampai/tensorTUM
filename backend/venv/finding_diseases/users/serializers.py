@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
-
+from user_statistics.models import UserStatistics
 
 class CustomUserSerializer(serializers.ModelSerializer):
     """
@@ -9,10 +9,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     user_name = serializers.CharField(required=True)
     password = serializers.CharField(min_length=8, write_only=True)
+    total_count = serializers.ReadOnlyField(source="statistics.total_count")
+    total_correct_count = serializers.ReadOnlyField(source="statistics.total_correct_count")
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'user_name', 'password')
+        fields = ('email', 'user_name', 'password', 'total_count', 'total_correct_count')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
