@@ -13,15 +13,39 @@ class HomepageComponent extends Component {
 
         this.state = {
             logged_in: false,
+            username: "",
+            password: "",
             showLogo: true,
             showRegistrationForm: false,
             showQuiz: false,
             showLeaderboard: false,
-            username: "",
-            password: "",
             responses: LeaderboardResults
         }
 
+    }
+
+    isLoggedIn = () =>  {
+        return this.state.logged_in;
+    }
+
+    setLoggedIn = (val) =>  {
+        this.setState({logged_in: val});
+    }
+
+    setUser = (user) =>    {
+        this.setState({username: user});
+    }
+
+    getUser = () => {
+        return this.state.username;
+    }
+
+    setPassword = (pass) =>    {
+        this.setState({password: pass});
+    }
+
+    getPassword = () => {
+        return this.state.password;
     }
 
     componentDidMount() {
@@ -84,8 +108,7 @@ class HomepageComponent extends Component {
     render() {
         return (
             <div>
-                <NavigationBarComponent clickedNewGame={this.clickedNewGame} clicked
-                                        showLeaderboard={this.clickedShowLeaderboard}/>
+                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPasword={this.setPassword}/>
                 <LogoComponent id='logo'/>
 
                 <div className="body">

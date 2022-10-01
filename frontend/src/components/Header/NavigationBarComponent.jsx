@@ -10,8 +10,6 @@ class NavigationBarComponent extends Component {
 
         this.state = {
             logged_in: false,
-            username_fail: false,
-            password_fail: false,
             userid: "",
             show_login: true
         }
@@ -23,7 +21,7 @@ class NavigationBarComponent extends Component {
     }
 
     logoutUser = async () =>    {
-        this.setState({username_fail: false, password_fail: false, logged_in: false, userid: ""});
+        this.setState({logged_in: false, userid: ""});
         this.props.setLoggedIn(false);
         this.props.setUser("");
         this.props.setPass("");
