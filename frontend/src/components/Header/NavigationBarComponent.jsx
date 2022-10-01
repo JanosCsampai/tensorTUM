@@ -3,7 +3,6 @@ import {Button, Container, Form, Nav, Navbar, NavDropdown, Offcanvas} from "reac
 import Swal from "sweetalert2"
 import SlidingPane from "react-sliding-pane";
 import Slidebar from "./LoginComponent";
-import AuthAccount from "../account/account";
 
 class NavigationBarComponent extends Component {
     constructor(props) {
@@ -49,12 +48,13 @@ class NavigationBarComponent extends Component {
                         </Nav>
 
                         <Nav>
-                           <AuthAccount />
+                            <Slidebar/>
                         </Nav>
 
                     </Container>
                 </Navbar>
             </div>
+
         );
     }
 }
