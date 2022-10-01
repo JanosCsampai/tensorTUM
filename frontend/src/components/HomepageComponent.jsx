@@ -51,6 +51,10 @@ class HomepageComponent extends Component {
     componentDidMount() {
     }
 
+    addResult = (username, result) => {
+        this.state.responses.addResult(username, result);
+    }
+
     clickedNewGame = () => {
         Swal.fire({
             icon: "question",
@@ -113,7 +117,7 @@ class HomepageComponent extends Component {
 
                 <div className="body">
                     {this.state.showLeaderboard ? <LeaderboardComponent responses={this.state.responses}/> : null}
-                    {this.state.showQuiz ? <QuizComponent responses={this.state.responses} username = {this.state.username} /> : null}
+                    {this.state.showQuiz ? <QuizComponent username = {this.state.username} addResult = {this.addResult} /> : null}
                 </div>
             </div>
         );
