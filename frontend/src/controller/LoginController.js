@@ -13,6 +13,15 @@ class LoginController {
         );
     }
 
+    checkLogin(user, pass) {
+        return (
+            axios.get("")
+                .then(response =>   {
+                    return response.data;
+                })
+        );
+    }
+
 
 }
 
