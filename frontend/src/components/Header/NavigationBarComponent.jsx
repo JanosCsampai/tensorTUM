@@ -7,7 +7,7 @@ import AuthContext from "../../context/AuthContext";
 
 export default function NavigationBarComponent(props) {
     const [logged_in, setLogin] = useState(props.logged_in);
-    const authenticated = localStorage.getItem("access_token")
+    const [authenticated, setAuthenticated] = useState(localStorage.getItem("access_token"));
     const navigate = useNavigate();
     const {user, setUser} = useContext(AuthContext)
 
@@ -17,7 +17,8 @@ export default function NavigationBarComponent(props) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         axiosInstance.defaults.headers.common["Authorization"] = "";
-        navigate("/login");
+        //navigate("/login");
+        setAuthenticated(null);
     }
 
     return (
