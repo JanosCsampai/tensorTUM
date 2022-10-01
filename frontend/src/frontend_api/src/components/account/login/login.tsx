@@ -8,7 +8,6 @@ import './login.scss'
 import { useForm } from "react-hook-form";
 
 
-
 const schema = yup.object({
   email: yup.string().required().email(),
   password: yup.string().required().max(125),
