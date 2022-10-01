@@ -30,7 +30,7 @@ class LeaderboardComponent extends Component {
     render() {
         return (
             <div>
-                <h1 className="heading"> Leaderboard Component </h1>
+                <h1 className="heading"> Current Session Leaderboard </h1>
                 <Table striped bordered hover size="sm">
                     <thead>
                     <tr>

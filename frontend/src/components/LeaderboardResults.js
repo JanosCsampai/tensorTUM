@@ -9,6 +9,10 @@ class LeaderboardResults {
         return responses;
     }
 
+    containsUsername(name) {
+        return responses.map(x => x[0]).includes(name);
+    }
+
     addResult(player, score) {
         responses.push([player, score])
         responses.sort(

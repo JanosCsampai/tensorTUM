@@ -18,6 +18,7 @@ class HomepageComponent extends Component {
             showQuiz: false,
             showLeaderboard: false,
             username: "",
+            password: "",
             responses: LeaderboardResults
         }
 
@@ -49,10 +50,13 @@ class HomepageComponent extends Component {
                     showLeaderboard: false,
                     username: result.value
                 });
-                const y = document.getElementById('logo').getBoundingClientRect().top - 300;
-                setTimeout(() => {
-                    window.scrollTo({top: y, behavior: 'smooth'})
-                }, 300);
+
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+
             } else {
                 this.setState({
                     showRegistrationForm: false,
@@ -69,10 +73,12 @@ class HomepageComponent extends Component {
             showQuiz: false,
             showLeaderboard: true
         });
-        const y = document.getElementById('logo').getBoundingClientRect().top + window.pageYOffset - 300;
-        setTimeout(() => {
-            window.scrollTo({top: y, behavior: 'smooth'})
-        }, 300);
+
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     render() {
@@ -84,7 +90,7 @@ class HomepageComponent extends Component {
 
                 <div className="body">
                     {this.state.showLeaderboard ? <LeaderboardComponent responses={this.state.responses}/> : null}
-                    {this.state.showQuiz ? <QuizComponent/> : null}
+                    {this.state.showQuiz ? <QuizComponent responses={this.state.responses} username = {this.state.username} /> : null}
                 </div>
             </div>
         );

@@ -18,6 +18,22 @@ class NavigationBarComponent extends Component {
 
     }
 
+    showLogin = () =>   {
+        this.setState({showLogin: true});
+    }
+
+    logoutUser = async () =>    {
+        this.setState({username_fail: false, password_fail: false, logged_in: false, userid: ""});
+        this.props.setLoggedIn(false);
+        this.props.setUser("");
+        this.props.setPass("");
+        Swal.fire({
+            icon: 'success',
+            text: 'Successfully logged out',
+            showConfirmButton: false,
+            timer: 4000
+        });
+    }
 
     componentDidMount() {
     }

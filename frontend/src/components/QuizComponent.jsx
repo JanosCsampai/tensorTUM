@@ -5,6 +5,7 @@ class QuizComponent extends Component {
         super(props);
 
         this.state = {
+            images: ['']
         }
 
     }
@@ -15,7 +16,8 @@ class QuizComponent extends Component {
     render() {
         return (
             <div>
-                <h1> Quiz Component </h1>
+
+
             </div>
         );
     }
