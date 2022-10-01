@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import {Button, ButtonGroup, Card, Form, Image} from "react-bootstrap";
 
 export default function QuizComponent(props) {
-    //options: Healthy, pneumonia bacterial, pneumonia viral, tuberculosis, COVID19, edema, lesion    
+    // options: Healthy, pneumonia bacterial, pneumonia viral, tuberculosis, COVID19, edema, lesion
     const [result, setResult] = useState(0);
     const [images, setImages] = useState([]);
     const [currentImage, setCurrentImage] = useState(0);
@@ -39,6 +39,19 @@ export default function QuizComponent(props) {
         // update the statistics.
         let oracleValue = modelResponse[0].tagName;
         console.log(oracleValue);
+
+        if (oracleValue != userInput) {
+            Swal.fire({
+                icon: 'error',
+                title: 'The correct answer is: ' + oracleValue,
+            })
+        } else {
+            Swal.fire({
+                icon: 'success',
+                title: 'Well done, your answer was correct!',
+            })
+        }
+
         return oracleValue == userInput;
     }
 
@@ -71,10 +84,11 @@ export default function QuizComponent(props) {
     }, []);
 
     return (
-        <Card className="alignCenter">
+        <Card className="quiz">
             {showResult ?
                 <div className={"heading"}>
                     <h1> Your result is: {result} / {images.length} </h1>
+                    <Button variant="success" onClick={props.quizEnded}>Proceed to Leaderboard</Button>
                 </div>
                 : (
                     <div>
@@ -85,7 +99,7 @@ export default function QuizComponent(props) {
 
                             <div>
                                 {images.length != 0 ?
-                                    <Image fluid={true} src={images[currentImage].image_url}></Image> : null}
+                                    <Image className="alignCenter" fluid={true} src={images[currentImage].image_url}></Image> : null}
                             </div>
 
                         </div>
@@ -96,7 +110,6 @@ export default function QuizComponent(props) {
                             <Button
                                     onClick={() => updateResult("tuberculosis")}>tuberculosis</Button>
                             <Button variant={"primary"} onClick={() => updateResult("covid")}>covid</Button>
-
                         </div>
                     </div>
                 )}
