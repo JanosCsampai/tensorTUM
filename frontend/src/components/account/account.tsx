@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { Component, useState } from "react";
+import React, { Component, useState } from "react";
 
 import './account.scss'
 import { Link, useNavigate } from 'react-router-dom';
