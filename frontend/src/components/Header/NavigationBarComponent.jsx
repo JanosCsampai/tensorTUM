@@ -33,6 +33,12 @@ class NavigationBarComponent extends Component {
         });
     }
 
+    loginUser = async  () => {
+    }
+
+    registerUser = async () =>  {
+    }
+
     componentDidMount() {
     }
 
@@ -48,7 +54,7 @@ class NavigationBarComponent extends Component {
                         </Nav>
 
                         <Nav>
-                            <Slidebar/>
+                            <Slidebar setLoggedIn={this.props.setLoggedIn} setUser={this.props.setUser} setPassword={this.props.setPassword} loginUser={this.loginUser} registerUser={this.registerUser}/>
                         </Nav>
 
                     </Container>

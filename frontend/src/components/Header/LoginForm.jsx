@@ -1,11 +1,19 @@
 
 import React, { useState } from "react"
 
-export default function (props) {
+function LoginForm(props) {
     let [authentication, setAuthentication] = useState("login")
 
     const changeAuthentication = () => {
        setAuthentication(authentication == "login" ? "register" : "login");
+    }
+
+    const changeUser = () => {
+
+    }
+
+    const changePassword = () => {
+
     }
 
     if (authentication == "login") {
@@ -16,23 +24,27 @@ export default function (props) {
                         <h3 className="Auth-form-title">Sign In</h3>
 
                         <div className="form-group mt-3">
-                            <label>Email address: </label>
+                            <label>Username: </label>
                             <input
+                                id = "user1"
                                 type="email"
                                 className="form-control mt-1"
-                                placeholder="Enter email"
+                                placeholder="Enter username"
+                                onChange={changeUser()}
                             />
                         </div>
                         <div className="form-group mt-3">
                             <label>Password: </label>
                             <input
+                                id = "pass1"
                                 type="password"
                                 className="form-control mt-1"
                                 placeholder="Enter password"
+                                onChange={changePassword()}
                             />
                         </div>
                         <div className="d-grid gap-1 mt-3">
-                            <button type="submit" className="btn btn-success">
+                            <button type="submit" className="btn btn-success" onClick={props.loginUser}>
                                 Submit
                             </button>
                         </div>
@@ -52,11 +64,13 @@ export default function (props) {
                         <h3>Register</h3>
 
                         <div className="form-group mt-3">
-                            <label>Full Name</label>
+                            <label>Username:</label>
                             <input
+                                id="user2"
                                 type="email"
                                 className="form-control mt-1"
-                                placeholder="e.g Jane Doe"
+                                placeholder="Username"
+                                onChange={changeUser()}
                             />
                         </div>
                         <div className="form-group mt-3">
@@ -70,13 +84,15 @@ export default function (props) {
                         <div className="form-group mt-3">
                             <label>Password</label>
                             <input
+                                id="pass2"
                                 type="password"
                                 className="form-control mt-1"
                                 placeholder="Password"
+                                onChange = {changePassword()}
                             />
                         </div>
                         <div className="d-grid gap-1 mt-3">
-                            <button type="submit" className="btn btn-success">
+                            <button type="submit" className="btn btn-success" onClick={props.registerUser}>
                                 Submit
                             </button>
                         </div>
@@ -93,3 +109,4 @@ export default function (props) {
         )
     }
 }
+export default LoginForm

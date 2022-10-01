@@ -108,7 +108,7 @@ class HomepageComponent extends Component {
     render() {
         return (
             <div>
-                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPasword={this.setPassword}/>
+                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPassword={this.setPassword}/>
                 <LogoComponent id='logo'/>
 
                 <div className="body">

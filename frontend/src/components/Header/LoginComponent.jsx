@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LoginForm from "./LoginForm";
 
-function Slidebar() {
+function Slidebar(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -18,7 +18,7 @@ function Slidebar() {
                 <Offcanvas.Header closeButton>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <LoginForm/>
+                    <LoginForm setLoggedIn={props.setLoggedIn} setUser={props.setUser} setPassword={props.setPassword} loginUser={props.loginUser} registerUser={props.registerUser}></LoginForm>
                 </Offcanvas.Body>
             </Offcanvas>
         </>
