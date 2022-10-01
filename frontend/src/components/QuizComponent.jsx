@@ -1,7 +1,7 @@
 import React, {Component, useState, useEffect} from 'react';
 import AIController from "../controller/AIController";
 import Swal from 'sweetalert2'
-import {Button, Form, Image} from "react-bootstrap";
+import {Button, ButtonGroup, Card, Form, Image} from "react-bootstrap";
 
 export default function QuizComponent(props) {
     //options: Healthy, pneumonia bacterial, pneumonia viral, tuberculosis, COVID19, edema, lesion    
@@ -71,13 +71,16 @@ export default function QuizComponent(props) {
     }, []);
 
     return (
-        <div>
-            {showResult ? <div> You result is: {result} / {images.length} </div>
+        <Card className="alignCenter">
+            {showResult ?
+                <div className={"heading"}>
+                    <h1> Your result is: {result} / {images.length} </h1>
+                </div>
                 : (
                     <div>
                         <div>
-                            <div>
-                                <span> Question {currentImage + 1} </span>/{images.length}
+                            <div className={"heading"}>
+                                <h5> Question {currentImage + 1} out of {images.length} </h5>
                             </div>
 
                             <div>
@@ -87,14 +90,16 @@ export default function QuizComponent(props) {
 
                         </div>
 
-                        <div className="list-group">
-                            <button onClick={() => updateResult("healthy")}>healthy</button>
-                            <button onClick={() => updateResult("pneumonia")}>pneumonia</button>
-                            <button onClick={() => updateResult("tuberculosis")}>tuberculosis</button>
-                            <button onClick={() => updateResult("covid")}>covid</button>
+                        <div className={"d-grid gap-2"}>
+                            <Button onClick={() => updateResult("healthy")}>healthy</Button>
+                            <Button onClick={() => updateResult("pneumonia")}>pneumonia</Button>
+                            <Button
+                                    onClick={() => updateResult("tuberculosis")}>tuberculosis</Button>
+                            <Button variant={"primary"} onClick={() => updateResult("covid")}>covid</Button>
+
                         </div>
                     </div>
                 )}
-        </div>
+        </Card>
     );
 }

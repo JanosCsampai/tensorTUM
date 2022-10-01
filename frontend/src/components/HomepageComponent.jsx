@@ -24,10 +24,6 @@ class HomepageComponent extends Component {
 
     }
 
-    isLoggedIn = () =>  {
-        return this.state.logged_in;
-    }
-
     setLoggedIn = (val) =>  {
         this.setState({logged_in: val});
     }
