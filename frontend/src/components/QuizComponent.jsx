@@ -20,11 +20,25 @@ export default function QuizComponent(props) {
             },
             body: JSON.stringify({"Url": imageUrl})
         })
-            .then((response) =>
-                console.log(response.json()))
-            .then((data) => setModelResponse(data))
+            .then((response) => response.json())
+            .then((data) => setModelResponse(data.predictions))
             .catch((error) => console.log(error))
-        return true;
+
+        modelResponse.sort(
+            function (first, second) {
+                if (first.probability > second.probability) {
+                    return -1;
+                } else if (second.probability > first.probability) {
+                    return 1;
+                }
+                return 0;
+            }
+        );
+
+        // update the statistics.
+        let oracleValue = modelResponse[0].tagName;
+        console.log(oracleValue);
+        return oracleValue == userInput;
     }
 
     const updateResult = (disease) => {
@@ -73,13 +87,10 @@ export default function QuizComponent(props) {
                         </div>
 
                         <div className="list-group">
-                            <button onClick={() => updateResult("asdsad")}>healthy</button>
-                            <button onClick={() => updateResult("asds")}>pneumonia bacterial</button>
-                            <button onClick={() => updateResult("asds")}>pneumonia viral</button>
-                            <button onClick={() => updateResult("asds")}>tuberculosis</button>
-                            <button onClick={() => updateResult("asds")}>COVID19</button>
-                            <button onClick={() => updateResult("asds")}>edema</button>
-                            <button onClick={() => updateResult("asds")}>lesion</button>
+                            <button onClick={() => updateResult("healthy")}>healthy</button>
+                            <button onClick={() => updateResult("pneumonia")}>pneumonia</button>
+                            <button onClick={() => updateResult("tuberculosis")}>tuberculosis</button>
+                            <button onClick={() => updateResult("covid")}>covid</button>
                         </div>
                     </div>
                 )}
