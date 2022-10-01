@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useRef} from 'react';
 import NavigationBarComponent from "./Header/NavigationBarComponent";
 import LeaderboardComponent from "./LeaderboardComponent";
 import QuizComponent from "./QuizComponent";
@@ -19,7 +19,7 @@ class HomepageComponent extends Component {
             showRegistrationForm: false,
             showQuiz: false,
             showLeaderboard: false,
-            responses: LeaderboardResults
+            responses: LeaderboardResults,
         }
 
     }
@@ -31,6 +31,14 @@ class HomepageComponent extends Component {
                 showLeaderboard: true
             }
         )
+    }
+
+    showLogo = () => {
+        this.setState({
+            showLogo:true,
+            showLeaderboard: false,
+            showQuiz: false
+        })
     }
 
     setLoggedIn = (val) =>  {
@@ -81,20 +89,18 @@ class HomepageComponent extends Component {
                     showRegistrationForm: false,
                     showQuiz: true,
                     showLeaderboard: false,
+                    showLogo:false,
                     username: result.value
                 });
 
-                window.scrollTo({
-                    top: document.body.scrollHeight,
-                    left: 0,
-                    behavior: 'smooth'
-                });
+               this.body.scrollIntoView({behavior:"smooth"});
 
             } else {
                 this.setState({
                     showRegistrationForm: false,
                     showQuiz: false,
-                    showLeaderboard: false
+                    showLeaderboard: false,
+                    showLogo: true
                 });
             }
         });
@@ -106,21 +112,16 @@ class HomepageComponent extends Component {
             showQuiz: false,
             showLeaderboard: true
         });
-
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            left: 0,
-            behavior: 'smooth'
-        });
+        this.body.scrollIntoView({behavior:"smooth"});
     }
 
     render() {
         return (
             <div>
-                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPassword={this.setPassword} logged_in={this.state.logged_in}/>
-                <LogoComponent id='logo'/>
+                <NavigationBarComponent clickedNewGame={this.clickedNewGame} showLeaderboard={this.clickedShowLeaderboard} setLoggedIn={this.setLoggedIn} setUser={this.setUser} setPassword={this.setPassword} logged_in={this.state.logged_in} showLogo={this.showLogo}/>
+                {this.state.showLogo ? <LogoComponent id='logo'/> : null }
 
-                <div className="body">
+                <div className="body" ref={body => { this.body = body; }}>
                     {this.state.showLeaderboard ? <LeaderboardComponent responses={this.state.responses}/> : null}
                     {this.state.showQuiz ? <QuizComponent username = {this.state.username} addResult = {this.addResult} quizEnded = {this.quizEnded}/> : null}
                 </div>

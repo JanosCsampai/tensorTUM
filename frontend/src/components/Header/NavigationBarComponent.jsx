@@ -24,7 +24,7 @@ export default function NavigationBarComponent(props) {
         <div>
             <Navbar bg="primary" variant="dark">
                 <Container>
-                    <Navbar.Brand>Beat the Med Student {user ? user.user_id : null}</Navbar.Brand>
+                    <Navbar.Brand onClick={props.showLogo}>Beat the Med Student {user ? user.user_id : null}</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link onClick={props.clickedNewGame}> Start Game </Nav.Link>
                         <Nav.Link onClick={props.showLeaderboard}> View Leaderboard </Nav.Link>
