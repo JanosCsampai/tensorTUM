@@ -13,7 +13,6 @@ export default function QuizComponent(props) {
     const [modelResponse, setModelResponse] = useState([]);
     const {user} = useContext(AuthContext)
 
-
     const updateStatistics = (user, disease, correct) => {
         correct = correct ? 1 : 0
         fetch("http://127.0.0.1:8000/api/statistics/edit/" + user)
