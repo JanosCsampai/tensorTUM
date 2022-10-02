@@ -1,5 +1,7 @@
 ## Django & React & SQLite & Azure CustomVision
 #### Login for provided local SQLite Database
+<img src="image (3).png">
+
 Email: admin@mail.com
 Password: admin12345
 
@@ -11,3 +13,5 @@ Password: admin12345
 ##### Inside backend folder: 
 1. install requirements with pip 
 2. run django server via py manage.py runserver
+
+#### TechStack Overview
