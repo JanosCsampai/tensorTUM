@@ -1,9 +1,10 @@
 import React, {Component, useState, useContext} from 'react';
-import {Button, Container, Form, Nav, Navbar, NavDropdown, Offcanvas} from "react-bootstrap";
+import {Button, Container, Form, Nav, Navbar, NavDropdown, Offcanvas, Image} from "react-bootstrap";
 
 import {Link, useNavigate} from "react-router-dom";
 import axiosInstance from "../../api/axios";
 import AuthContext from "../../context/AuthContext";
+import logo from "../logo.png"
 
 export default function NavigationBarComponent(props) {
     const [logged_in, setLogin] = useState(props.logged_in);
@@ -23,9 +24,11 @@ export default function NavigationBarComponent(props) {
 
     return (
         <>
-            <Navbar bg="primary" variant="dark" style={{height: "6%"}}>
+            <Navbar bg="white" variant="white" style={{height: "6%"}}>
                 <Container>
-                    <Navbar.Brand style={{cursor: "pointer"}} onClick={props.showMenu}>🤖 (Placeholder Icon)</Navbar.Brand>
+                    <Navbar.Brand className="me-3 p-0" style={{cursor: "pointer", height: "40px", width: "40px"}} onClick={props.showMenu}>
+                        <Image fluid={true} src={logo}/>
+                    </Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link onClick={props.showLeaderboard}> Leaderboard </Nav.Link>
                         <Nav.Link onClick={props.clickedShowStatistics}> My Statistics </Nav.Link>

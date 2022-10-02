@@ -6,7 +6,11 @@ import QuizRegistrationComponent from "./QuizRegistrationComponent";
 import Swal from 'sweetalert2'
 import LogoComponent from "./LogoComponent";
 import AuthContext from '../context/AuthContext';
-import { Card, Container, Row, ProgressBar } from 'react-bootstrap';
+import { Card, Container, Row, ProgressBar, Image } from 'react-bootstrap';
+import Logo from "../logo.png"
+import dalle1 from "./dalle-1.png"
+import dalle2 from "./dalle-2.png"
+import dalle3 from "./dalle-3.png"
 
 import  { Redirect } from 'react-router-dom'
 
@@ -69,23 +73,23 @@ export default function HomepageComponent(props){
             .catch((error) => console.log(error))
     }, [user]);
     
-    return (<>
+    return (<div style={{ backgroundImage: `u2rl(${dalle1})`, backgroundSize: "100%",  height: "100vh"}}>
             <NavigationBarComponent clickedNewGame={clickedNewGame} showLeaderboard={clickedShowLeaderboard} setUser={setUser} showMenu={showMenu} clickedShowStatistics={clickedShowStatistics}/>
+            <hr></hr>
             <Container className="p-3 h-100 justify-content-center align-items-center">
             {showLogo ? <Row className="h-75">
                 
-                
-                {user.user_name}
-                    <Card className="col-12 w-100 m-2" style={{ width: '40rem', cursor: 'pointer' }}>
+                    {/* <Image src={dalle1}></Image> */}
+                    <Card className="col-12 w-100 m-2" style={{ backgroundImage: `url(${dalle3})`, backgroundPosition: "60% 38%", backgroundSize: "100%", width: '40rem', cursor: 'pointer'}}>
                         <Card.Body>
                             <Card.Title><h1 style={{fontWeight: "bold"}} className="text-bold">Daily Practice</h1></Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Tailored to your needs</Card.Subtitle>
+                            <Card.Subtitle  style={{color: "black"}} >Tailored to your needs</Card.Subtitle>
                         </Card.Body>
                     </Card>
-                    <Card onClick={clickedNewGame} className="col-6 m-2" style={{ width: '40rem', cursor: 'pointer' }}>
+                    <Card variant="dark" onClick={clickedNewGame} className="col-6 m-2" style={{ backgroundImage: `url(${dalle1})`, backgroundPosition: "60% 0%", backgroundSize: "100%", width: '40rem', cursor: 'pointer' }}>
                         <Card.Body>
-                            <Card.Title><h1 style={{fontWeight: "bold"}} className="text-bold">Quick Quiz</h1></Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Random samples of images</Card.Subtitle>
+                            <Card.Title><h1 style={{fontWeight: "bold", color: "white"}} className="text-bold">Quick Quiz</h1></Card.Title>
+                            <Card.Subtitle style={{color: "white"}} className="mb-2">Random samples of images</Card.Subtitle>
                         </Card.Body>
                     </Card>
                     <Card className="col-6 m-2" style={{ width: '40rem', opacity: 0.5}}>
@@ -127,6 +131,7 @@ export default function HomepageComponent(props){
                     {showLeaderboard ? <LeaderboardComponent/> : null}
                     {showQuiz ? <QuizComponent quizEnded = {quizEnded}/> : null}
                 </div>
-            </Container></>
+            </Container>
+            </div>
     );
 }
