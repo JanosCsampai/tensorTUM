@@ -1,4 +1,4 @@
-## Django
+## Django & React & SQLite & Azure CustomVision
 #### Login for provided local SQLite Database
 Email: admin@mail.com
 Password: admin12345
