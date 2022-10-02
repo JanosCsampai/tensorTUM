@@ -19,12 +19,10 @@ export default function HomepageComponent(props){
     const [showLogo, setShowLogo] = useState(true)
     const [showRegistrationForm, setshowRegistrationForm] = useState(false)
     const [showQuiz, setshowQuiz] = useState(false)
+    const [showQuizPractice, setshowQuizPractice] = useState(false)
     const [showLeaderboard, setshowLeaderboard] = useState(false)
     const [showStats, setShowStats] = useState(false)
     const [stats, setStats] = useState(null)
-
-    
-    
 
     function quizEnded() {
         setshowQuiz(false)
@@ -43,6 +41,7 @@ export default function HomepageComponent(props){
         setshowLeaderboard(false)
         setshowQuiz(true)
         setShowStats(false)
+        setshowQuizPractice(false)
     }
 
     function clickedShowLeaderboard() {
@@ -59,6 +58,13 @@ export default function HomepageComponent(props){
         setShowStats(true)
     }
 
+    function clickedShowQuizPractice() {
+        setshowQuizPractice(true);
+        setShowLogo(false)
+        setshowLeaderboard(false)
+        setshowQuiz(true)
+        setShowStats(false)
+    }
     
     useEffect(() => {
         console.log(user.user_name)
@@ -79,8 +85,9 @@ export default function HomepageComponent(props){
             <Container className="p-3 h-100 justify-content-center align-items-center">
             {showLogo ? <Row className="h-75">
                 
-                    {/* <Image src={dalle1}></Image> */}
-                    <Card className="col-12 w-100 m-2" style={{ backgroundImage: `url(${dalle3})`, backgroundPosition: "60% 38%", backgroundSize: "100%", width: '40rem', cursor: 'pointer'}}>
+                
+                {user.user_name}
+                    <Card onClick={clickedShowQuizPractice} className="col-6 m-2" style={{ backgroundImage: `url(${dalle3})`, backgroundPosition: "60% 38%", backgroundSize: "100%", width: '40rem', cursor: 'pointer' }}>
                         <Card.Body>
                             <Card.Title><h1 style={{fontWeight: "bold"}} className="text-bold">Daily Practice</h1></Card.Title>
                             <Card.Subtitle  style={{color: "black"}} >Tailored to your needs</Card.Subtitle>
@@ -129,7 +136,7 @@ export default function HomepageComponent(props){
                     null}
                 <div className="body">
                     {showLeaderboard ? <LeaderboardComponent/> : null}
-                    {showQuiz ? <QuizComponent quizEnded = {quizEnded}/> : null}
+                    {showQuiz ? <QuizComponent quizEnded = {quizEnded} showPractice={showQuizPractice} stats={stats}/> : null}
                 </div>
             </Container>
             </div>
