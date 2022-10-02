@@ -37,6 +37,7 @@ export default function HomepageComponent(props){
         setshowLeaderboard(false)
         setshowQuiz(true)
         setShowStats(false)
+        setshowQuizPractice(false)
     }
 
     function clickedShowLeaderboard() {
@@ -130,7 +131,7 @@ export default function HomepageComponent(props){
                     null}
                 <div className="body">
                     {showLeaderboard ? <LeaderboardComponent/> : null}
-                    {showQuiz ? <QuizComponent quizEnded = {quizEnded} showPractice={showQuizPractice}/> : null}
+                    {showQuiz ? <QuizComponent quizEnded = {quizEnded} showPractice={showQuizPractice} stats={stats}/> : null}
 
                 </div>
             </Container></>
