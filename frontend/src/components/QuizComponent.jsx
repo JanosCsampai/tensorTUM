@@ -107,9 +107,8 @@ export default function QuizComponent(props) {
                         <div className={"d-grid gap-2"}>
                             <Button onClick={() => updateResult("healthy")}>healthy</Button>
                             <Button onClick={() => updateResult("pneumonia")}>pneumonia</Button>
-                            <Button
-                                    onClick={() => updateResult("tuberculosis")}>tuberculosis</Button>
-                            <Button variant={"primary"} onClick={() => updateResult("covid")}>covid</Button>
+                            <Button onClick={() => updateResult("tuberculosis")}>tuberculosis</Button>
+                            <Button onClick={() => updateResult("covid")}>covid</Button>
                         </div>
                     </div>
                 )}

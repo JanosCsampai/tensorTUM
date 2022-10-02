@@ -17,17 +17,18 @@ const schema = yup.object({
 
 
 function Login() {
-  const { register, handleSubmit, formState: {errors}, getValues, setValue } = useForm<any>({
+  const { register, handleSubmit, formState: {errors}, getValues, setValue } = useForm({
     resolver: yupResolver(schema), 
   });
-  const {user, setUser} = useContext(AuthContext)
+  const {user, setUser, getUserData} = useContext(AuthContext)
   const history = useNavigate();
   const initialFormData = Object.freeze({
     email: "",
     password: "",
   })
 
-  const onSubmit = (data: any, e:any) => {
+
+  const onSubmit = (data, e) => {
     console.log("data",data, e);
     e.preventDefault();
     axiosInstance
@@ -41,14 +42,15 @@ function Login() {
         localStorage.setItem("refresh_token", res.data.refresh);
         // Update headers for future axios calls
         axiosInstance.defaults.headers.common["Authorization"] = "JWT " + localStorage.getItem("access_token");
-        console.log(jwt_decode(res.data.access))
-        setUser(jwt_decode(res.data.access));
-        console.log(user)
+        getUserData(res.data.access)
+        
+        // setUser(jwt_decode(res.data.access));
+        // console.log(user)
         history("/");
       })
   }
 
-  const onError = (errors: any, e: any) => console.log("errors yay",errors, e);
+  const onError = (errors, e) => console.log("errors yay",errors, e);
 
 
   return (
