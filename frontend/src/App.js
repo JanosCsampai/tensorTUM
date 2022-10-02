@@ -10,7 +10,7 @@ function App() {
     return (
         <BrowserRouter>
         <AuthProvider>
-        <div className="App">
+        <div className="App" style={{height: "100vh"}}>
                 <Routes>
                     <Route path="/register" element={<Register></Register>}></Route>
                     <Route path="/login" element={<Login></Login>}></Route>

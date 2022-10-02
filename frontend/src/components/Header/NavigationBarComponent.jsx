@@ -22,12 +22,11 @@ export default function NavigationBarComponent(props) {
     }
 
     return (
-        <div>
-            <Navbar bg="primary" variant="dark">
+        <>
+            <Navbar bg="primary" variant="dark" style={{height: "6%"}}>
                 <Container>
-                    <Navbar.Brand onClick={props.showLogo}>Beat the Med Student {user ? user.user_name : null}</Navbar.Brand>
+                    <Navbar.Brand onClick={props.showLogo}>{user ? user.user_name : null}</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link onClick={props.clickedNewGame}> Start Game </Nav.Link>
                         <Nav.Link onClick={props.showLeaderboard}> View Leaderboard </Nav.Link>
                     </Nav>
 
@@ -40,7 +39,7 @@ export default function NavigationBarComponent(props) {
 
                 </Container>
             </Navbar>
-        </div>
+        </>
 
     );
 }

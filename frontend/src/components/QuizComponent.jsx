@@ -1,7 +1,7 @@
 import React, {Component, useState, useEffect, useContext} from 'react';
 import AIController from "../controller/AIController";
 import Swal from 'sweetalert2'
-import {Button, ButtonGroup, Card, Form, Image} from "react-bootstrap";
+import {Button, ButtonGroup, Card, Form, Image, ProgressBar} from "react-bootstrap";
 import AuthContext from '../context/AuthContext';
 
 export default function QuizComponent(props) {
@@ -107,7 +107,6 @@ export default function QuizComponent(props) {
             .then((data) => {
                 setImages(data);
             })
-            //   .then((response) => )
 
             .catch((error) => console.log(error))
     }, []);
@@ -123,12 +122,12 @@ export default function QuizComponent(props) {
                     <div>
                         <div>
                             <div className={"heading"}>
-                                <h5> Question {currentImage + 1} out of {images.length}</h5>
+                                <ProgressBar className="mb-2" now={((currentImage)/(images.length))*100} label={`${((currentImage)/(images.length))*100}%`} />
                             </div>
 
                             <div className="alignCenter">
                                 {images.length != 0 ?
-                                    <Image className="justify-content-md-center mb-4" fluid={true} src={images[currentImage].image_url}></Image> : null}
+                                    <Image rounded={true} className="justify-content-md-center mb-4" fluid={true} src={images[currentImage].image_url}></Image> : null}
                             </div>
 
                         </div>
