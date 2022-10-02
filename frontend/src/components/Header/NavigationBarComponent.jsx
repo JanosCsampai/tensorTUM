@@ -10,7 +10,6 @@ export default function NavigationBarComponent(props) {
     const [authenticated, setAuthenticated] = useState(localStorage.getItem("access_token"));
     const navigate = useNavigate();
     const {user, setUser} = useContext(AuthContext)
-    console.log(user)
 
     //<Slidebar setLoggedIn={this.props.setLoggedIn} setUser={this.props.setUser} setPassword={this.props.setPassword} loginUser={this.loginUser} registerUser={this.registerUser}/>
 

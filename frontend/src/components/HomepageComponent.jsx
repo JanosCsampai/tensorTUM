@@ -6,15 +6,14 @@ import QuizRegistrationComponent from "./QuizRegistrationComponent";
 import Swal from 'sweetalert2'
 import LogoComponent from "./LogoComponent";
 import LeaderboardResults from "./LeaderboardResults";
+import AuthContext from '../context/AuthContext';
 
 class HomepageComponent extends Component {
+    static contextType = AuthContext
     constructor(props) {
         super(props);
 
         this.state = {
-            logged_in: localStorage.getItem("access_token"),
-            username: "",
-            password: "",
             showLogo: true,
             showRegistrationForm: false,
             showQuiz: false,
@@ -69,40 +68,11 @@ class HomepageComponent extends Component {
     }
 
     clickedNewGame = () => {
-        Swal.fire({
-            icon: "question",
-            title: 'Enter a username',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Start',
-            showLoaderOnConfirm: true,
-            allowOutsideClick: () => !Swal.isLoading()
-        }).then((result) => {
-            if (result.isConfirmed) {
-                console.log(result.value);
-                this.setState({
-                    showRegistrationForm: false,
-                    showQuiz: true,
-                    showLeaderboard: false,
-                    showLogo:false,
-                    username: result.value
-                });
-
-               this.body.scrollIntoView({behavior:"smooth"});
-
-            } else {
-                this.setState({
-                    showRegistrationForm: false,
-                    showQuiz: false,
-                    showLeaderboard: false,
-                    showLogo: true
-                });
-            }
+        this.setState({
+            showRegistrationForm: false,
+            showQuiz: true,
+            showLeaderboard: false,
+            showLogo: false
         });
     }
 
@@ -124,7 +94,7 @@ class HomepageComponent extends Component {
 
                 <div className="body" ref={body => { this.body = body; }}>
                     {this.state.showLeaderboard ? <LeaderboardComponent responses={this.state.responses}/> : null}
-                    {this.state.showQuiz ? <QuizComponent username = {this.state.username} addResult = {this.addResult} quizEnded = {this.quizEnded}/> : null}
+                    {this.state.showQuiz ? <QuizComponent addResult = {this.addResult} quizEnded = {this.quizEnded}/> : null}
                 </div>
             </div>
         );

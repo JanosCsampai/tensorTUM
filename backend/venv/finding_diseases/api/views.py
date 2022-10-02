@@ -92,4 +92,3 @@ class UserStatisticsList(generics.ListAPIView):
         return qs
 
     
-UserStatisticsList

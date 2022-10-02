@@ -1,53 +1,49 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {Table} from "react-bootstrap";
 import LeaderboardResults from "./LeaderboardResults";
 
 
-class LeaderboardComponent extends Component {
-    constructor(props) {
-        super(props);
+export default function LeaderboardComponent(props) {
+    const [leaderboard, setLeaderboard] = useState([])
 
-        this.state = {
-
-        }
-
-    }
-
-    componentDidMount() {
-    }
-
-    mapRows = () => {
+    function mapRows(){
         let i = 1;
-        return this.props.responses.getResponses().map(x =>
+        return leaderboard.map(x =>
             <tr>
                 <td> {i++} </td>
-                <td> {x[0]} </td>
-                <td> {x[1]}</td>
+                <td> {x.user_name} </td>
+                <td> {x.total_correct_count}</td>
             </tr>
         )
     }
+    useEffect(() => {
+        const apiUrl = "http://127.0.0.1:8000/api/leaderboard/"
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                setLeaderboard(data);
+            })
 
-    render() {
-        return (
-            <div>
-                <h1 className="heading"> Current Session Leaderboard </h1>
-                <Table striped bordered hover size="sm">
-                    <thead>
-                    <tr>
-                        <th>Ranking</th>
-                        <th>Username</th>
-                        <th>Score</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                       this.mapRows()
-                    }
-                    </tbody>
-                </Table>
-            </div>
-        );
-    }
+            .catch((error) => console.log(error))
+    }, []);
+
+    return (
+        <div>
+            <h1 className="heading"> Current Session Leaderboard </h1>
+            <Table striped bordered hover size="sm">
+                <thead>
+                <tr>
+                    <th>Ranking</th>
+                    <th>Username</th>
+                    <th>Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                { leaderboard ? mapRows() : null
+                }
+                </tbody>
+            </Table>
+        </div>
+    );
 }
 
-export default LeaderboardComponent;

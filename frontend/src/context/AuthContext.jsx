@@ -43,8 +43,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (authTokens) {
       setUser(getUserData(authTokens));
-      console.log(user)
-      console.log(getUserData(authTokens))
     }
     setLoading(false);
   }, [authTokens, loading]);
