@@ -6,7 +6,8 @@ import QuizRegistrationComponent from "./QuizRegistrationComponent";
 import Swal from 'sweetalert2'
 import LogoComponent from "./LogoComponent";
 import AuthContext from '../context/AuthContext';
-import { Card, Container, Row } from 'react-bootstrap';
+import { Card, Container, Row, ProgressBar } from 'react-bootstrap';
+
 import  { Redirect } from 'react-router-dom'
 
 export default function HomepageComponent(props){
@@ -15,6 +16,8 @@ export default function HomepageComponent(props){
     const [showRegistrationForm, setshowRegistrationForm] = useState(false)
     const [showQuiz, setshowQuiz] = useState(false)
     const [showLeaderboard, setshowLeaderboard] = useState(false)
+    const [showStats, setShowStats] = useState(false)
+    const [stats, setStats] = useState(null)
 
     
     
@@ -28,27 +31,51 @@ export default function HomepageComponent(props){
         setShowLogo(true)
         setshowLeaderboard(false)
         setshowQuiz(false)
+        setShowStats(false)
     }
 
     function clickedNewGame() {
         setShowLogo(false)
         setshowLeaderboard(false)
         setshowQuiz(true)
+        setShowStats(false)
     }
 
     function clickedShowLeaderboard() {
         setShowLogo(false)
         setshowLeaderboard(true)
         setshowQuiz(false)
+        setShowStats(false)
     }
+
+    function clickedShowStatistics() {
+        setShowLogo(false)
+        setshowLeaderboard(false)
+        setshowQuiz(false)
+        setShowStats(true)
+    }
+
+    
+    useEffect(() => {
+        console.log(user.user_name)
+        const apiUrl = "http://127.0.0.1:8000/api/statistics/edit/" + user.id + "/"
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                setStats(data)
+                console.log(data);
+            })
+
+            .catch((error) => console.log(error))
+    }, [user]);
     
     return (<>
-            <NavigationBarComponent clickedNewGame={clickedNewGame} showLeaderboard={clickedShowLeaderboard} setUser={setUser}/>
+            <NavigationBarComponent clickedNewGame={clickedNewGame} showLeaderboard={clickedShowLeaderboard} setUser={setUser} showMenu={showMenu} clickedShowStatistics={clickedShowStatistics}/>
             <Container className="p-3 h-100 justify-content-center align-items-center">
             {showLogo ? <Row className="h-75">
                 
                 
-                
+                {user.user_name}
                     <Card className="col-12 w-100 m-2" style={{ width: '40rem', cursor: 'pointer' }}>
                         <Card.Body>
                             <Card.Title><h1 style={{fontWeight: "bold"}} className="text-bold">Daily Practice</h1></Card.Title>
@@ -70,6 +97,32 @@ export default function HomepageComponent(props){
             
             
                     </Row> : null }
+                    {showStats ? 
+                    <Card className="quiz p-4">
+                        <Card.Body>
+                            <Card.Title><h1 style={{fontWeight: "bold"}} className="text-bold">{user.user_name}</h1></Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Statistics</Card.Subtitle>
+                            <Card.Text>
+                            {stats != null ?<>
+                            <small>Practiced with {stats.total_count} Images</small>
+                            <br></br>
+                            <small>Correctly identified {stats.total_correct_count} Images</small>
+                            <Card.Subtitle className="mt-3 mb-2 text-muted">Accuracy</Card.Subtitle>
+                            <small>Total</small>
+                            <ProgressBar className="mb-2" now={stats.total_correct_count / stats.total_count * 100} />                            
+                            <small>Healthy</small>
+                            <ProgressBar className="mb-2" now={stats.healthy_correct_count / stats.healthy_count * 100} />
+                            <small>Pneumonia</small>
+                            <ProgressBar className="mb-2" now={stats.pneunomia_correct_count / stats.pneunomia_count * 100} />
+                            <small>Covid</small>
+                            <ProgressBar className="mb-2" now={stats.covid_correct_count / stats.covid_count * 100} />
+                            <small>Tuberculosis</small>
+                            <ProgressBar className="mb-2" now={stats.tuberculosis_correct_count / stats.tuberculosis_count * 100} />
+                            </> : null }
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>:
+                    null}
                 <div className="body">
                     {showLeaderboard ? <LeaderboardComponent/> : null}
                     {showQuiz ? <QuizComponent quizEnded = {quizEnded}/> : null}

@@ -25,9 +25,10 @@ export default function NavigationBarComponent(props) {
         <>
             <Navbar bg="primary" variant="dark" style={{height: "6%"}}>
                 <Container>
-                    <Navbar.Brand onClick={props.showLogo}>{user ? user.user_name : null}</Navbar.Brand>
+                    <Navbar.Brand style={{cursor: "pointer"}} onClick={props.showMenu}>🤖 (Placeholder Icon)</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link onClick={props.showLeaderboard}> View Leaderboard </Nav.Link>
+                        <Nav.Link onClick={props.showLeaderboard}> Leaderboard </Nav.Link>
+                        <Nav.Link onClick={props.clickedShowStatistics}> My Statistics </Nav.Link>
                     </Nav>
 
                     <Nav>

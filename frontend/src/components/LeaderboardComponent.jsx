@@ -29,7 +29,7 @@ export default function LeaderboardComponent(props) {
 
     return (
         <div>
-            <h1 className="heading"> Current Session Leaderboard </h1>
+            <h1 className="heading">Leaderboard </h1>
             <Table striped bordered hover size="sm">
                 <thead>
                 <tr>

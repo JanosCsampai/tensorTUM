@@ -2,8 +2,7 @@ from django.db import models
 
 disease = [
     ('healthy','Healthy'),
-    ('pneumoniaB','Pneumonia Bacterial'),
-    ('pneumoniaV','Pneumonia Viral'),
+    ('pneumonia','Pneumonia'),
     ('tuberculosis','Tuberculosis'),
     ('covid','Covid'),
     ('edema','Edema'),
