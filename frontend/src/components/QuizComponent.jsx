@@ -13,6 +13,17 @@ export default function QuizComponent(props) {
     const [modelResponse, setModelResponse] = useState([]);
     const {user} = useContext(AuthContext)
 
+    // using the shuffle algorithm by Fisher Yates
+    function shuffleArray(array) {
+        let randomPosition;
+        for (let i = array.length; i != 0;) {
+            randomPosition = Math.floor(Math.random() * i);
+            i--;
+            [array[i], array[randomPosition]] = [array[randomPosition], array[i]];
+        }
+        return array;
+    }
+
     const updateStatistics = (user, disease, correct) => {
         correct = correct ? 1 : 0
         fetch("http://127.0.0.1:8000/api/statistics/edit/" + user)
@@ -110,7 +121,7 @@ export default function QuizComponent(props) {
             fetch(apiUrl)
                 .then((response) => response.json())
                 .then((data) => {
-                    setImages(data);
+                    setImages(shuffleArray(data));
                 })
                 .catch((error) => console.log(error))
         } else {
@@ -174,7 +185,7 @@ export default function QuizComponent(props) {
 
             setTimeout(function() {
                 console.log(quizData);
-                setImages(quizData);
+                setImages(shuffleArray(quizData));
             }, 2000);
         }
     }, [])
