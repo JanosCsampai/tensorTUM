@@ -110,7 +110,8 @@ class HomepageComponent extends Component {
         this.setState({
             showRegistrationForm: false,
             showQuiz: false,
-            showLeaderboard: true
+            showLeaderboard: true,
+            showLogo:false
         });
         this.body.scrollIntoView({behavior:"smooth"});
     }

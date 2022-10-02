@@ -97,9 +97,9 @@ export default function QuizComponent(props) {
                                 <h5> Question {currentImage + 1} out of {images.length} </h5>
                             </div>
 
-                            <div>
+                            <div className="alignCenter">
                                 {images.length != 0 ?
-                                    <Image className="alignCenter" fluid={true} src={images[currentImage].image_url}></Image> : null}
+                                    <Image className="justify-content-md-center" fluid={true} src={images[currentImage].image_url}></Image> : null}
                             </div>
 
                         </div>
