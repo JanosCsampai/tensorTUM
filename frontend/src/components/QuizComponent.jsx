@@ -13,47 +13,6 @@ export default function QuizComponent(props) {
     const [modelResponse, setModelResponse] = useState([]);
     const {user} = useContext(AuthContext)
 
-    const checkAnswer = (imageUrl, userInput) => {
-        let apiUrl = "https://studentcustomvision-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/3ffcf92d-eaab-4841-82c6-9c1116bc65ef/classify/iterations/HighPrecisionModelFinal/url";
-        fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                'Prediction-Key': 'c4e91f529cc24912a0ecc45339b04679',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({"Url": imageUrl})
-        })
-            .then((response) => response.json())
-            .then((data) => setModelResponse(data.predictions))
-            .catch((error) => console.log(error))
-
-        modelResponse.sort(
-            function (first, second) {
-                if (first.probability > second.probability) {
-                    return -1;
-                } else if (second.probability > first.probability) {
-                    return 1;
-                }
-                return 0;
-            }
-        );
-
-        // update the statistics.
-        let oracleValue = modelResponse[0].tagName;
-
-        if (oracleValue != userInput) {
-            Swal.fire({
-                icon: 'error',
-                title: 'The correct answer is: ' + oracleValue,
-            })
-        } else {
-            Swal.fire({
-                icon: 'success',
-                title: 'Well done, your answer was correct!',
-            })
-        }
-        return [oracleValue, oracleValue == userInput]
-    }
 
     const updateStatistics = (user, disease, correct) => {
         correct = correct ? 1 : 0
@@ -85,20 +44,60 @@ export default function QuizComponent(props) {
             })
     }
 
-    const updateResult = (disease) => {
-        let [correct_disease, equalsAnswer] = checkAnswer(images[currentImage].image_url, disease);
-        if (equalsAnswer) {
-            setResult(result + 1);
-        }
-        updateStatistics(user.id, correct_disease, equalsAnswer)
+    async function updateResult(disease){
+        let apiUrl = "https://studentcustomvision-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/3ffcf92d-eaab-4841-82c6-9c1116bc65ef/classify/iterations/HighPrecisionModelFinal/url";
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                'Prediction-Key': 'c4e91f529cc24912a0ecc45339b04679',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"Url": images[currentImage].image_url})
+        })
+            .then((response) => {let data = response.json(); console.log(data); return data})
+            .then((data) => setModelResponse(data.predictions))
+            .then(() => {
+                modelResponse.sort(
+                    function (first, second) {
+                        if (first.probability > second.probability) {
+                            return -1;
+                        } else if (second.probability > first.probability) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+                );
 
-        const nextQuestion = currentImage + 1;
-        if (nextQuestion < images.length) {
-            setCurrentImage(nextQuestion);
-        } else {
-            setShowResult(true);
-            
-        }
+                // update the statistics.
+                let oracleValue = modelResponse[0].tagName;
+
+                if (oracleValue != disease) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'The correct answer is: ' + oracleValue,
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Well done, your answer was correct!',
+                    })
+                }
+                let equalAnswer = oracleValue == disease; 
+                if (equalAnswer) {
+                    setResult(result + 1);
+                }
+                updateStatistics(user.id, oracleValue, equalAnswer)
+        
+                const nextQuestion = currentImage + 1;
+                if (nextQuestion < images.length) {
+                    setCurrentImage(nextQuestion);
+                } else {
+                    setShowResult(true);
+                    
+                }
+            })
+            .catch((error) => console.log(error))
+        
     };
 
     useEffect(() => {
@@ -114,7 +113,7 @@ export default function QuizComponent(props) {
     }, []);
 
     return (
-        <Card className="quiz">
+        <Card className="quiz p-4">
             {showResult ?
                 <div className={"heading"}>
                     <h1> Your result is: {result} / {images.length} </h1>
@@ -129,7 +128,7 @@ export default function QuizComponent(props) {
 
                             <div className="alignCenter">
                                 {images.length != 0 ?
-                                    <Image className="justify-content-md-center" fluid={true} src={images[currentImage].image_url}></Image> : null}
+                                    <Image className="justify-content-md-center mb-4" fluid={true} src={images[currentImage].image_url}></Image> : null}
                             </div>
 
                         </div>
