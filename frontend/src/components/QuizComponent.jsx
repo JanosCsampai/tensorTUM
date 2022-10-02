@@ -132,10 +132,10 @@ export default function QuizComponent(props) {
             let correctTuberculosis = props.stats.tuberculosis_count == 0 ? 0 :  props.stats.tuberculosis_correct_count / props.stats.tuberculosis_count;
             let correctCovid = props.stats.covid_count == 0 ? 0 : props.stats.covid_correct_count / props.stats.covid_count;
 
-            let healthyDataToFetch  = Math.round(correctHealthy * props.stats.total_count);
-            let pneumoniaDataToFetch  = Math.round(correctPneumonia * props.stats.total_count);
-            let tuberculosisDataToFetch = Math.round(correctTuberculosis * props.stats.total_count);
-            let covidDataToFetch = Math.round(correctCovid * props.stats.total_count);
+            let healthyDataToFetch  = Math.round(correctHealthy *20);
+            let pneumoniaDataToFetch  = Math.round(correctPneumonia * 20);
+            let tuberculosisDataToFetch = Math.round(correctTuberculosis * 20);
+            let covidDataToFetch = Math.round(correctCovid * 20);
 
             /*
             console.log(healthyDataToFetch);
@@ -203,7 +203,7 @@ export default function QuizComponent(props) {
                         <div>
                             <div className={"heading"}>
                                 <ProgressBar className="mb-2" now={((currentImage) / (images.length)) * 100}
-                                             label={`${((currentImage) / (images.length)) * 100}%`}/>
+                                             label={`${Math.round(((currentImage) / (images.length)) * 100)}%`}/>
                             </div>
 
                             <div className="alignCenter">

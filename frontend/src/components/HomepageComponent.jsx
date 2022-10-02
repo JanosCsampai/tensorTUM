@@ -86,8 +86,7 @@ export default function HomepageComponent(props){
             {showLogo ? <Row className="h-75">
                 
                 
-                {user.user_name}
-                    <Card onClick={clickedShowQuizPractice} className="col-6 m-2" style={{ backgroundImage: `url(${dalle3})`, backgroundPosition: "60% 38%", backgroundSize: "100%", width: '40rem', cursor: 'pointer' }}>
+                    <Card onClick={clickedShowQuizPractice} className="col-12 m-2" style={{ backgroundImage: `url(${dalle3})`, backgroundPosition: "60% 38%", backgroundSize: "100%", width: '100%', cursor: 'pointer' }}>
                         <Card.Body>
                             <Card.Title><h1 style={{fontWeight: "bold"}} className="text-bold">Daily Practice</h1></Card.Title>
                             <Card.Subtitle  style={{color: "black"}} >Tailored to your needs</Card.Subtitle>
