@@ -11,6 +11,8 @@ import random
 from ctimage.serializers import CTImageSerializer
 from users.models import CustomUser
 from users.serializers import CustomUserSerializer
+from user_statistics.models import UserStatistics
+from user_statistics.serializers import UserStatisticsSerializer
 
 # Create your views here.
 
@@ -91,4 +93,11 @@ class UserStatisticsList(generics.ListAPIView):
 
         return qs
 
-    
+"""Django Rest Framework Generic Detail API View""" 
+class UserStatisticsUpdate(generics.RetrieveUpdateAPIView):
+    serializer_class = UserStatisticsSerializer
+
+    def get_object(self):
+        user_id = self.kwargs["id"]
+        user = get_object_or_404(CustomUser, id=user_id)
+        return user.statistics

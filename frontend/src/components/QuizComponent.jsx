@@ -40,7 +40,6 @@ export default function QuizComponent(props) {
 
         // update the statistics.
         let oracleValue = modelResponse[0].tagName;
-        console.log(oracleValue);
 
         if (oracleValue != userInput) {
             Swal.fire({
@@ -53,41 +52,57 @@ export default function QuizComponent(props) {
                 title: 'Well done, your answer was correct!',
             })
         }
-
-        return oracleValue == userInput;
+        return [oracleValue, oracleValue == userInput]
     }
 
-    const updateStatistics = (user, result) => {
-        // fetch("apiUrl", {
-        //     method: "POST",
-        //     headers: {
-        //         'Prediction-Key': 'c4e91f529cc24912a0ecc45339b04679',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({"Url": imageUrl})
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => setModelResponse(data.predictions))
+    const updateStatistics = (user, disease, correct) => {
+        correct = correct ? 1 : 0
+        fetch("http://127.0.0.1:8000/api/statistics/edit/" + user)
+            .then((response) => response.json())
+            .then((data) => {
+                let disease_count = disease+"_count"
+                let disease_correct_count = disease+"_correct_count"
+
+                let result = {
+                    "total_count": data["total_count"] + 1,
+                    "total_correct_count": data["total_correct_count"] + correct,
+                };
+                
+                result[disease_correct_count] = data[disease_correct_count] + correct
+                result[disease_count] = data[disease_count] + 1
+                console.log(result)
+                fetch("http://127.0.0.1:8000/api/statistics/edit/" + user + "/", {
+                    method: "PUT",
+                    headers: {
+                        
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(result)
+                })
+                    .then((response) => response.json())
+                    .then((data) => console.log(data))
+                    
+            })
     }
 
     const updateResult = (disease) => {
-        let equalsAnswer = checkAnswer(images[currentImage].image_url, disease);
-
+        let [correct_disease, equalsAnswer] = checkAnswer(images[currentImage].image_url, disease);
         if (equalsAnswer) {
             setResult(result + 1);
         }
+        updateStatistics(user.id, correct_disease, equalsAnswer)
 
         const nextQuestion = currentImage + 1;
         if (nextQuestion < images.length) {
             setCurrentImage(nextQuestion);
         } else {
             setShowResult(true);
-            props.addResult(user.user_name, result);
+            
         }
     };
 
     useEffect(() => {
-        const apiUrl = "http://127.0.0.1:8000/api/ctimages/" + 2
+        const apiUrl = "http://127.0.0.1:8000/api/ctimages/" + 10
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {

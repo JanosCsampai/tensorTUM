@@ -13,3 +13,6 @@ class UserStatistics(models.Model):
     pneunomia_correct_count = models.IntegerField(default=0)
     tuberculosis_correct_count = models.IntegerField(default=0)
     covid_correct_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.total_count)
