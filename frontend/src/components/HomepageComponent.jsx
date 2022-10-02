@@ -132,7 +132,6 @@ export default function HomepageComponent(props){
                 <div className="body">
                     {showLeaderboard ? <LeaderboardComponent/> : null}
                     {showQuiz ? <QuizComponent quizEnded = {quizEnded} showPractice={showQuizPractice} stats={stats}/> : null}
-
                 </div>
             </Container></>
     );

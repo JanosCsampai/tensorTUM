@@ -104,7 +104,7 @@ export default function QuizComponent(props) {
     };
 
     useEffect(() => {
-        if (!props.showPractice) {
+        if (!props.showPractice || props.stats == null) {
             const apiUrl = "http://127.0.0.1:8000/api/ctimages/" + 10
 
             fetch(apiUrl)
@@ -112,10 +112,70 @@ export default function QuizComponent(props) {
                 .then((data) => {
                     setImages(data);
                 })
-
                 .catch((error) => console.log(error))
         } else {
-            console.log("scenario2");
+            let quizData = [];
+
+            let correctHealthy = props.stats.healthy_count == 0 ? 0 :  props.stats.healthy_correct_count / props.stats.healthy_count;
+            let correctPneumonia = props.stats.pneunomia_count == 0 ? 0 : props.stats.pneunomia_correct_count / props.stats.pneunomia_count
+            let correctTuberculosis = props.stats.tuberculosis_count == 0 ? 0 :  props.stats.tuberculosis_correct_count / props.stats.tuberculosis_count;
+            let correctCovid = props.stats.covid_count == 0 ? 0 : props.stats.covid_correct_count / props.stats.covid_count;
+
+            let healthyDataToFetch  = Math.round(correctHealthy * props.stats.total_count);
+            let pneumoniaDataToFetch  = Math.round(correctPneumonia * props.stats.total_count);
+            let tuberculosisDataToFetch = Math.round(correctTuberculosis * props.stats.total_count);
+            let covidDataToFetch = Math.round(correctCovid * props.stats.total_count);
+
+            /*
+            console.log(healthyDataToFetch);
+            console.log(pneumoniaDataToFetch);
+            console.log(tuberculosisDataToFetch);
+            console.log(covidDataToFetch);
+
+             */
+
+            fetch("http://127.0.0.1:8000/api/ctimages/healthy/" + healthyDataToFetch)
+                .then((response) => response.json())
+                .then((data) => { if (data.length != 0) {
+                    //console.log(data)
+                    quizData = quizData.concat(data);
+                    console.log(quizData);
+                }
+                })
+                .catch((error) => console.log(error))
+
+            fetch("http://127.0.0.1:8000/api/ctimages/pneunomia/" + pneumoniaDataToFetch)
+                .then((response) => response.json())
+                .then((data) => { if (data.length != 0) {
+                    //console.log(data);
+                    quizData = quizData.concat(data);
+                    console.log(quizData);
+                }
+                })
+                .catch((error) => console.log(error))
+            fetch("http://127.0.0.1:8000/api/ctimages/tuberculosis/" + tuberculosisDataToFetch)
+                .then((response) => response.json())
+                .then((data) => { if (data.length != 0) {
+                    //console.log(data);
+                    quizData = quizData.concat(data);
+                    console.log(quizData);
+                }
+                })
+                .catch((error) => console.log(error))
+            fetch("http://127.0.0.1:8000/api/ctimages/covid/" + covidDataToFetch)
+                .then((response) => response.json())
+                .then((data) => { if (data.length != 0) {
+                    //console.log(data);
+                    quizData = quizData.concat(data);
+                    console.log(quizData);
+                }
+                })
+                .catch((error) => console.log(error))
+
+            setTimeout(function() {
+                console.log(quizData);
+                setImages(quizData);
+            }, 2000);
         }
     }, [])
     ;
@@ -145,7 +205,7 @@ export default function QuizComponent(props) {
 
                         <div className={"d-grid gap-2"}>
                             <Button onClick={() => updateResult("healthy")}>healthy</Button>
-                            <Button onClick={() => updateResult("pneunomia")}>pneumonia</Button>
+                            <Button onClick={() => updateResult("pneumonia")}>pneumonia</Button>
                             <Button onClick={() => updateResult("tuberculosis")}>tuberculosis</Button>
                             <Button onClick={() => updateResult("covid")}>covid</Button>
                         </div>
